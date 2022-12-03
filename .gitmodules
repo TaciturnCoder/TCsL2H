@@ -1,0 +1,3 @@
+[submodule "Consortium"]
+	path = .modules/Consortium
+	url = https://github.com/TaciturnCoder/Consortium.git
