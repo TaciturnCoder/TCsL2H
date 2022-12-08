@@ -9,7 +9,7 @@
 [//]: # ( ------------------------------------------------------------------ {c)
 
 # Taciturn Coder's `License to Hack` License
-TCsL2H 0.0.1
+TCsL2H 0.0.2
 
 ## Warning!
 - I am not a lawyer and this is not a legal advice,

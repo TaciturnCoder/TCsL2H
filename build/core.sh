@@ -10,6 +10,18 @@
 #//]: # ( See the License for the permissions and limitations.               {c)
 #//]: # ( ------------------------------------------------------------------ {c)
 
+. "$root/build/header.sh"
+
+core_skip=10
+core_Defs="$root/src/core/Defs.md"
+core_Grants="$root/src/core/Grants.md"
+core_Conditions="$root/src/core/Conditions.md"
+core_Limitations="$root/src/core/Limitations.md"
+core_Termination="$root/src/core/Termination.md"
+core_out="$root/.tmp/core.md"
+
+dos2fs='s/\r//g'
+
 core_title="# Taciturn Coder's \`License to Hack\` License
 TCsL2H $revision.$patch.$draft"
 

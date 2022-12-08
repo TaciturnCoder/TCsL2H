@@ -10,10 +10,12 @@
 #//]: # ( See the License for the permissions and limitations.               {c)
 #//]: # ( ------------------------------------------------------------------ {c)
 
+. "$root/build/core.sh"
+
 mkdir -p "docs/legalcode"
 
 docs_out="docs/legalcode/$revision.$patch.$draft.md"
 
-cat "$license/.tmp/core.md" >"$docs_out"
+cat "$root/.tmp/core.md" >"$docs_out"
 cat "ReadMe.md" >"docs/ReadMe.md"
 cat "License.md" >"docs/License.md"

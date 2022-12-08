@@ -10,56 +10,58 @@
 #//]: # ( See the License for the permissions and limitations.               {c)
 #//]: # ( ------------------------------------------------------------------ {c)
 
-exit_success=0
-exit_parameter_error=1
-exit_config_error=3
-exit_dependency_error=2
-exit_root_error=4
-
-name="TCsL2H"
-
-argc=$#
-if [ $argc -ne 1 ]; then
-    config=".consortium.json"
-    if [ ! -f "$config" ]; then
-        echo "[$name] Speak $config and Enter"
+python="python"
+if ! [ -x "$(command -v $python)" ]; then
+    python="python3"
+    if ! [ -x "$(command -v $python)" ]; then
+        echo "[TCsL2H] \"python\" missing! Finding Nemo..."
         echo ""
-        exit $exit_parameter_error
+        exit 1
     fi
 fi
 
-if [ ! "$config" ]; then
-    config="$1"
+root="."
+ctm="$root/.modules/Consortium"
+
+action=$1
+config=$2
+
+if [ -z "$action" ]; then
+    echo "[TCsL2H] Speak action and Enter."
+    echo ""
+    exit 1
+fi
+
+if [ -z "$config" ]; then
+    config=".consortium.json"
 fi
 if [ ! -f "$config" ]; then
-    echo "[$name] Operation succesful. \"$config\" died?"
+    echo "[TCsL2H] Operation succesful. \"$config\" died?"
     echo ""
-    exit $exit_config_error
+    exit 1
 fi
 
-jq --version &>/dev/null
-if [ $? -ne 0 ]; then
-    echo "[$name] \"jq\" missing! Finding Nemo..."
-    echo ""
-    exit $exit_dependency_error
-fi
+function from_config() {
+    $python "$ctm/src/extract.py" "$@" --config $config
+}
 
-license=$(cat "$config" | jq -cr ".config.license")
-if [ ! -d "$license" ]; then
-    echo "[$name] \"$license\" is a dead end!"
-    echo ""
-    exit $exit_root_error
-fi
+ctm=$(from_config "Consortium.root" | tr -d '"')
+root=$(from_config "TCsL2H.root" | tr -d '"')
 
-mkdir -p ".tmp"
+mkdir -p "$root/.tmp"
 
-. "$license/build/data.sh"
+case $action in
+header)
+    . "$root/build/header.sh"
+    ;;
+core)
+    . "$root/build/core.sh"
+    ;;
+docs)
+    . "$root/build/docs.sh"
+    ;;
+*) ;;
+esac
 
-. "$license/build/header.sh"
-. "$license/build/core.sh"
-
-if [ "$license" = "." ]; then
-    . "$license/build/docs.sh"
-fi
-
-exit $exit_success
+$python "$ctm/src/extract.py" --clean --config $config
+exit 0

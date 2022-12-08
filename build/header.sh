@@ -10,8 +10,37 @@
 #//]: # ( See the License for the permissions and limitations.               {c)
 #//]: # ( ------------------------------------------------------------------ {c)
 
+revision=0
+patch=0
+draft=1
+
+year=$(from_config "TCsL2H.year" | tr -d '"')
+name=$(from_config "TCsL2H.licensor.name" | tr -d '"')
+email=$(from_config "TCsL2H.licensor.email" | tr -d '"')
+
+if [ "$email" != "null" ]; then
+    licensor="$name <$email>"
+else
+    licensor="$name"
+fi
+
+header_skip=11
+header_template="$root/src/header/Template.md"
+header_out="$root/.tmp/header.md"
+
+dos2fs='s/\r//g'
+
+max_chars=80
+comment_begin="[//]: # ( "
+comment_end=" {c)"
+comment_fill=$((max_chars - (${#comment_begin} + ${#comment_end})))
+seperator=""
+for i in $(seq 1 $comment_fill); do
+    seperator="-$seperator"
+done
+
 header="$seperator
-$(tail +$header_skip $header_Template | sed $dos2fs)
+$(tail +$header_skip $header_template | sed $dos2fs)
 $seperator"
 
 header=$(echo "$header" | sed 's/$year/'"$year"'/g')
