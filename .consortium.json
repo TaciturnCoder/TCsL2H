@@ -1,22 +1,44 @@
 {
-    "$schema": "https://TaciturnCoder.github.io/Consortium/schema/0.0.3.json",
+    "$schema": "https://TaciturnCoder.github.io/Consortium/schema/0.0.4.json",
     "version": {
         "revision": 0,
         "patch": 0,
-        "draft": 2
+        "draft": 4
     },
-    "Consortium": {
-        "editor": [
-            "vscode"
-        ],
-        "root": ".modules/Consortium"
-    },
-    "TCsL2H": {
-        "year": 2022,
+    "editor": [
+        "vscode"
+    ],
+    "license": {
+        "year": "2022",
         "licensor": {
-            "name": "Dwij Bavisi",
-            "email": "dwijbavisi@gmail.com"
+            "author": "Dwij Bavisi",
+            "mail": "dwijbavisi@gmail.com"
+        }
+    },
+    "runners": {
+        "build-header": {
+            "scripts": [
+                "build/setup.sh",
+                "build/header.sh",
+                "build/clean.sh"
+            ]
         },
-        "root": "."
+        "build-core": {
+            "scripts": [
+                "build/setup.sh",
+                "build/header.sh",
+                "build/core.sh",
+                "build/clean.sh"
+            ]
+        },
+        "build-docs": {
+            "scripts": [
+                "build/setup.sh",
+                "build/header.sh",
+                "build/core.sh",
+                "build/docs.sh",
+                "build/clean.sh"
+            ]
+        }
     }
 }
