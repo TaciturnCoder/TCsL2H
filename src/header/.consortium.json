@@ -1,0 +1,15 @@
+{
+    "$schema": "https://TaciturnCoder.github.io/Consortium/schema/0.0.4.json",
+    "version": {
+        "revision": 0,
+        "patch": 0,
+        "draft": 1
+    },
+    "license": {
+        "year": "2022",
+        "licensor": {
+            "author": "Dwij Bavisi",
+            "mail": "dwijbavisi@gmail.com"
+        }
+    }
+}

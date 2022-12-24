@@ -10,23 +10,15 @@
 #//]: # ( See the License for the permissions and limitations.               {c)
 #//]: # ( ------------------------------------------------------------------ {c)
 
-revision=0
-patch=0
-draft=1
-
-year=$(from_config "TCsL2H.year" | tr -d '"')
-name=$(from_config "TCsL2H.licensor.name" | tr -d '"')
-email=$(from_config "TCsL2H.licensor.email" | tr -d '"')
-
-if [ "$email" != "null" ]; then
-    licensor="$name <$email>"
+if [ "$mail" != "null" ]; then
+    licensor="$author <$mail>"
 else
-    licensor="$name"
+    licensor="$author"
 fi
 
 header_skip=11
-header_template="$root/src/header/Template.md"
-header_out="$root/.tmp/header.md"
+header_template="src/header/Template.md"
+header_out=".tmp/header.md"
 
 dos2fs='s/\r//g'
 
@@ -46,9 +38,9 @@ $seperator"
 header=$(echo "$header" | sed 's/$year/'"$year"'/g')
 header=$(echo "$header" | sed 's/$licensor/'"$licensor"'/g')
 
-header=$(echo "$header" | sed 's/$revision/'$revision'/g')
-header=$(echo "$header" | sed 's/$patch/'$patch'/g')
-header=$(echo "$header" | sed 's/$draft/'$draft'/g')
+header=$(echo "$header" | sed 's/$revision/'$_r'/g')
+header=$(echo "$header" | sed 's/$patch/'$_p'/g')
+header=$(echo "$header" | sed 's/$draft/'$_d'/g')
 
 IFS='
 '
